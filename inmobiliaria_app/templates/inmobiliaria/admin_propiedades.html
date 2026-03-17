@@ -20,7 +20,10 @@
         background-size: cover;
         padding-top: 30px;
         padding-bottom: 30px;
-      }   
+      }
+    #btnNuevaPropiedad.is-form-open {
+      opacity: 0.25;
+    }
   
   </style>
 {% endblock head %}
@@ -28,7 +31,15 @@
 
 {% block body %}
 {% if es_admin %}
-  <div class="container" style="margin-bottom: 50px;">
+  <div class="container" style="margin-top: 90px; margin-bottom: 20px;">
+    <div class="d-flex justify-content-center" id="contenedorBotonNuevaPropiedad">
+      <button class="btn btn-primary" id="btnNuevaPropiedad" type="button" data-bs-toggle="collapse" data-bs-target="#formNuevaPropiedad" aria-expanded="{% if accion == 'actualizar' %}true{% else %}false{% endif %}" aria-controls="formNuevaPropiedad">
+        Agregar Nueva Propiedad
+      </button>
+    </div>
+  </div>
+
+  <div class="container collapse {% if accion == 'actualizar' %}show{% endif %}" id="formNuevaPropiedad" style="margin-bottom: 50px;">
     <div class="card" style="padding-top: 25px;">
       <H3 class="text-center" style="margin-bottom: 30px;">Crear Nueva Propiedad</H3>
       <div class="col">
@@ -46,9 +57,7 @@
               {{ propiedad_form.bannosPropiedad|as_crispy_field }}
               {{ propiedad_form.metroscubPropiedad|as_crispy_field }}
               {{ propiedad_form.ofertaPropiedad|as_crispy_field }}
-              <p style="color: grey;">Ingresar un "0" si la propiedad no tendrÃ¡ oferta.</p>
-
-            
+              <p style="color: grey;">Ingresar un "0" si la propiedad no tendrá oferta.</p>
             </div>
             <div class="col-lg-6" >
               {{ propiedad_form.descripcionPropiedad|as_crispy_field }}
@@ -143,7 +152,27 @@
 {% endblock body %}
 
 {% block script %} 
+  <script>
+    const formNuevaPropiedad = document.getElementById('formNuevaPropiedad');
+    const contenedorBotonNuevaPropiedad = document.getElementById('contenedorBotonNuevaPropiedad');
+    const btnNuevaPropiedad = document.getElementById('btnNuevaPropiedad');
 
+    if (formNuevaPropiedad && contenedorBotonNuevaPropiedad && btnNuevaPropiedad) {
+      if (formNuevaPropiedad.classList.contains('show')) {
+        btnNuevaPropiedad.classList.add('is-form-open');
+      } else {
+        btnNuevaPropiedad.classList.remove('is-form-open');
+      }
+
+      formNuevaPropiedad.addEventListener('shown.bs.collapse', function () {
+        btnNuevaPropiedad.classList.add('is-form-open');
+      });
+
+      formNuevaPropiedad.addEventListener('hidden.bs.collapse', function () {
+        btnNuevaPropiedad.classList.remove('is-form-open');
+      });
+    }
+  </script>
 {% endblock script %}
 
 

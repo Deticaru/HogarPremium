@@ -29,7 +29,7 @@
           display: none;
       }
 
-      /* Estilo del botÃ³n */
+      /* Estilo del boton */
       .custom-radio-button {
           display: inline-block;
           padding: 10px 20px;
@@ -42,7 +42,7 @@
           text-align: center;
       }
 
-      /* Estilo del botÃ³n cuando estÃ¡ seleccionado */
+      /* Estilo del boton cuando esta seleccionado */
       .content {
           display: none;
       }
@@ -51,7 +51,7 @@
       }
     </style>
       <script>
-          // FunciÃ³n para mostrar/ocultar contenido basado en el radio button seleccionado
+          // Funcion para mostrar/ocultar contenido basado en el radio button seleccionado
           function handleRadioChange(value) {
               // Oculta todos los contenedores
               document.querySelectorAll('.content').forEach(function(content) {
@@ -79,7 +79,7 @@
             {% if form_html.idPropiedadContacto.value  %}
             <div class="row">
               <div class="col" style="padding-bottom: 20px;">
-                <label for="TitPropiedad">TÃ­tulo de la propiedad:</label>
+                <label for="TitPropiedad">Titulo de la propiedad:</label>
                 <input type="text" class="form-control " disabled  onlyread value="{{propiedad_html.tituloPropiedad }}" id="TitPropiedad">
               </div>
               <div class="col"></div>
@@ -141,12 +141,13 @@
                                 <th>Correo </th>
                                 <th>Celular</th>
                                 <th>Mensaje</th>
+                                <th>Acciones</th>
                                 
                             </tr>
                         </thead>
                         <tbody style="word-wrap: break-word;" >
-                            <tr> 
                               {% for contacto in contCompCoar_html %}
+                            <tr>
                                 <td>
                                   <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
                                 </td>
@@ -161,7 +162,17 @@
                                 <td>{{contacto.emailContacto}}</td>
                                 <td>{{contacto.celularContacto}}</td>
                                 <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
-                                </tr>
+                                <td>
+                                  <button
+                                    type="button"
+                                    class="btn btn-danger btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmModal"
+                                    data-delete-url="{% url 'bandeja_mensaje' 'eliminar' contacto.idContacto %}">
+                                    borrar
+                                  </button>
+                                </td>
+                            </tr>
                               {%endfor%}
                         </tbody>
                     </table>
@@ -182,12 +193,13 @@
                                 <th>Correo </th>
                                 <th>Celular</th>
                                 <th>Mensaje</th>
+                                <th>Acciones</th>
                                 
                             </tr>
                         </thead>
                         <tbody style="word-wrap: break-word;" >
-                            <tr> 
                               {% for contacto in contVentVear_html %}
+                            <tr>
                               <td>
                                 <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
                               </td>
@@ -197,8 +209,16 @@
                               <td>{{contacto.emailContacto}}</td>
                               <td>{{contacto.celularContacto}}</td>
                               <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
-
-    
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-danger btn-sm"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#deleteConfirmModal"
+                                  data-delete-url="{% url 'bandeja_mensaje' 'eliminar' contacto.idContacto %}">
+                                  borrar
+                                </button>
+                              </td>
                             </tr> 
                             {%endfor%}
                         </tbody>
@@ -219,12 +239,13 @@
                             <th>Correo </th>
                             <th>Celular</th>
                             <th>Mensaje</th>
+                            <th>Acciones</th>
                             
                         </tr>
                     </thead>
                     <tbody style="word-wrap: break-word;" >
-                        <tr> 
                           {% for contacto in todos_contactos_html  %}
+                        <tr>
                           <td>
                             <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
                           </td>
@@ -239,8 +260,18 @@
                             <td>{{contacto.emailContacto}}</td>
                             <td>{{contacto.celularContacto}}</td>
                             <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
+                            <td>
+                              <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmModal"
+                                data-delete-url="{% url 'bandeja_mensaje' 'eliminar' contacto.idContacto %}">
+                                borrar
+                              </button>
+                            </td>
 
-                            </tr>
+                        </tr>
                           {%endfor%}
                     </tbody>
                 </table>
@@ -255,10 +286,43 @@
   </div>
 </div>
 
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmModalLabel">Confirmar eliminacion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta accion eliminara el mensaje de forma permanente. ¿Deseas continuar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="post" id="deleteContactForm">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Si, borrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock body %}
 
 {% block script %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>      
+  <script>
+    const deleteModal = document.getElementById('deleteConfirmModal');
+    const deleteContactForm = document.getElementById('deleteContactForm');
+
+    if (deleteModal && deleteContactForm) {
+      deleteModal.addEventListener('show.bs.modal', function (event) {
+        const triggerButton = event.relatedTarget;
+        const deleteUrl = triggerButton.getAttribute('data-delete-url');
+        deleteContactForm.setAttribute('action', deleteUrl);
+      });
+    }
+  </script>
 {% endblock script %}

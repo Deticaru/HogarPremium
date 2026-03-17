@@ -253,6 +253,12 @@ def prueba(request, accion, id):
 
 @login_required
 def bandeja_mensaje(request, accion, id):
+    if request.method == 'POST' and accion == 'eliminar':
+        contacto = get_object_or_404(Contacto, idContacto=id)
+        contacto.delete()
+        messages.success(request, 'Mensaje eliminado correctamente.')
+        return redirect('bandeja_mensaje', accion='inicio', id='0')
+
     esAdmin = request.user.is_superuser
     contacto_form = ContactoForm()
 
