@@ -26,9 +26,10 @@
         #body {
           background-color: #ffffff;
           padding-top: 70px;
+                    padding-bottom: 70px;
         }
         #informacion{
-          padding-top: 150px;
+                    padding-top: 120px;
         }
 
         #background {
@@ -45,6 +46,94 @@
                     font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
                     font-weight: 600;
                     letter-spacing: 0.2px;
+                }
+
+                #contactando {
+                    padding: 0 8px;
+                }
+
+                .modern-form-card {
+                    background: #ffffff;
+                    border: 1px solid #e9edf3;
+                    border-radius: 18px;
+                    box-shadow: 0 14px 40px rgba(15, 34, 58, 0.12);
+                    padding: 28px 24px;
+                }
+
+                .modern-form-card .form-label {
+                    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+                    font-weight: 600;
+                    font-size: 0.92rem;
+                    color: #243347;
+                    margin-bottom: 6px;
+                }
+
+                .modern-form-card .form-control,
+                .modern-form-card .form-select,
+                .modern-form-card textarea,
+                .modern-form-card input,
+                .modern-form-card select {
+                    border-radius: 12px;
+                    border: 1px solid #d7deea;
+                    min-height: 46px;
+                    box-shadow: none;
+                    padding: 10px 12px;
+                    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                }
+
+                .modern-form-card textarea {
+                    min-height: 120px;
+                    resize: vertical;
+                }
+
+                .modern-form-card .form-control:focus,
+                .modern-form-card .form-select:focus,
+                .modern-form-card textarea:focus,
+                .modern-form-card input:focus,
+                .modern-form-card select:focus {
+                    border-color: #0f223a;
+                    box-shadow: 0 0 0 0.2rem rgba(15, 34, 58, 0.12);
+                }
+
+                .btn-submit-modern {
+                    width: 100%;
+                    padding: 12px;
+                    margin-top: 22px;
+                    border: 0;
+                    border-radius: 12px;
+                    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+                    font-weight: 700;
+                    color: #ffffff;
+                    background: linear-gradient(135deg, #0f223a, #1f3a5a);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+
+                .btn-submit-modern:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 10px 22px rgba(15, 34, 58, 0.24);
+                }
+
+                .modern-info-card {
+                    background: #f7f9fc;
+                    border: 1px solid #e9edf3;
+                    border-radius: 18px;
+                    padding: 28px 24px;
+                }
+
+                .modern-info-card h4 {
+                    margin: 0;
+                    color: #243347;
+                }
+
+                @media (max-width: 767.98px) {
+                    #informacion {
+                        padding-top: 28px;
+                    }
+
+                    .modern-form-card,
+                    .modern-info-card {
+                        padding: 22px 18px;
+                    }
                 }
         
 
@@ -73,7 +162,7 @@
 
         <!-- Contacto -->
         <div class="col-sm-12 col-md-5" id="contactando">
-            <form id="form" method="post" enctype="multipart/form-data">
+            <form id="form" method="post" enctype="multipart/form-data" class="modern-form-card">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
@@ -129,7 +218,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn" type="submit" style="background-color: #f29d9e; width: 100%; padding: 9px; margin-top: 25px;">Enviar</button>
+                        <button class="btn btn-submit-modern" type="submit">Enviar</button>
                     </div>
                 </div>
                 <!-- TOAST -->
@@ -156,15 +245,17 @@
         <!-- Información -->
         <div class="col-sm-12 col-md-5">
             <div class="row" id="informacion">
-                <h4>
-                    En Hogar Premium te acompañamos para vender o arrendar tu propiedad de forma simple y segura.
-                    <br><br>
-                    Publicamos, filtramos y gestionamos cada contacto para que recibas propuestas reales, sin perder tiempo.
-                    <br><br>
-                    Trabajamos con cercanía, criterio comercial y comunicación clara en todo el proceso.
-                    <br><br>
-                    Cuéntanos qué necesitas y nosotros nos encargamos del resto.
-                </h4>
+                <div class="modern-info-card">
+                    <h4>
+                        En Hogar Premium te acompañamos para vender o arrendar tu propiedad de forma simple y segura.
+                        <br><br>
+                        Publicamos, filtramos y gestionamos cada contacto para que recibas propuestas reales, sin perder tiempo.
+                        <br><br>
+                        Trabajamos con cercanía, criterio comercial y comunicación clara en todo el proceso.
+                        <br><br>
+                        Cuéntanos qué necesitas y nosotros nos encargamos del resto.
+                    </h4>
+                </div>
             </div>
         </div>
 
