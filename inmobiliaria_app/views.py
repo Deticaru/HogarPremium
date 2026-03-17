@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import *
 from .forms import *
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 
@@ -80,6 +80,14 @@ def ingresar (request):
 
     
     return render(request, 'inmobiliaria/ingresar.html', context)
+
+@login_required
+def cerrar_sesion(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Sesión cerrada correctamente.')
+    return redirect('inicio')
+
 def compra(request):
     esAdmin = request.user.is_superuser
     if request.method == 'POST':

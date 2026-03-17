@@ -65,6 +65,42 @@
     filter: invert(0.2);
 }
 
+.site-navbar .dropdown-menu {
+    border: 1px solid #d5dde7;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.logout-item {
+    color: #b42318;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.logout-item i {
+    margin-right: 6px;
+}
+
+.logout-item:hover,
+.logout-item:focus {
+    background-color: #fde8e7;
+    color: #991b1b;
+}
+
+.logout-modal-content {
+    border-radius: 14px;
+    border: 1px solid #e4e8ef;
+}
+
+.logout-modal-content .modal-header {
+    border-bottom: 1px solid #edf1f6;
+}
+
+.logout-modal-content .modal-title {
+    color: #1a2d41;
+    font-weight: 700;
+}
+
 .footerContainer {
     width: 100%;
 }

@@ -99,6 +99,12 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'admin_propiedades' 'crear' '0' %}">Ver Propiedades</a></li>
                                 <li><a class="dropdown-item" href="{% url 'bandeja_mensaje' 'inicio' '0' %}">Bandeja de Entrada</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <button class="dropdown-item logout-item" type="button" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                                    </button>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item ms-2 d-flex" id="admin">
@@ -130,7 +136,41 @@
             <p>HogarPremium Copyright &copy; 2026</p>
         </div>
     </footer>
+
+    <form id="logoutForm" method="post" action="{% url 'cerrar_sesion' %}" class="d-none">
+        {% csrf_token %}
+    </form>
+
+    <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content logout-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutConfirmModalLabel">Confirmar cierre de sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{% static 'js/bootstrap.bundle.min' %}"></script>
+    <script>
+        (function () {
+            const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+            const logoutForm = document.getElementById('logoutForm');
+            if (confirmLogoutBtn && logoutForm) {
+                confirmLogoutBtn.addEventListener('click', function () {
+                    logoutForm.submit();
+                });
+            }
+        })();
+    </script>
     {% block script %} 
 
     {% endblock %}
