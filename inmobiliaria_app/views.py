@@ -6,6 +6,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -129,7 +130,10 @@ def venta(request):
 @login_required
 def admin_propiedades(request, accion, id):
     esAdmin = request.user.is_superuser
-    todas_propiedades = Propiedad.objects.all().order_by('-idPropiedad')
+    todas_propiedades = Propiedad.objects.select_related('paisPropiedad').prefetch_related('images').order_by('-idPropiedad')
+    paginator = Paginator(todas_propiedades, 12)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
     
 
     # Definimos el formset para imágenes con 'extra=1' para permitir agregar nuevas imágenes
@@ -195,7 +199,8 @@ def admin_propiedades(request, accion, id):
     context = {
         'accion': accion.lower(),
         'es_admin': esAdmin,
-        'propiedades_todas': todas_propiedades,
+        'propiedades_todas': page_obj,
+        'page_obj': page_obj,
         'propiedad_form': propiedad_form,
         'imagenes_form_html' :imagenes_form,
         #'imagen_formset': imagen_formset,

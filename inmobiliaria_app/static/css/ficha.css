@@ -1,34 +1,231 @@
-#ficha {
-    margin-left: 60px ;
+.ficha-page {
+    padding-top: 98px;
+    min-height: calc(100vh - 120px);
+    background:
+        radial-gradient(circle at 10% 12%, rgba(15, 34, 58, 0.12) 0, rgba(15, 34, 58, 0) 32%),
+        radial-gradient(circle at 86% 8%, rgba(200, 154, 43, 0.16) 0, rgba(200, 154, 43, 0) 34%),
+        linear-gradient(180deg, #f8f6f1 0%, #ffffff 55%);
 }
-#Descripción{
-    margin-top: 40px;
 
+.ficha-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 14px 36px rgba(10, 22, 38, 0.12);
+    overflow: hidden;
 }
 
-/* #baño{
-    margin-left: 170px;
-    margin-right: 9px;
+.property-carousel .carousel-inner {
+    aspect-ratio: 16 / 10;
+    background: #dde3ea;
 }
-#dormitorio{
-    margin-left: 20px;
-    margin-right: 9px;
-} 
-#m2{
-    margin-left: 20px;
-    margin-right: 9px;
-}
-    */
-/* #informacion{
-    margin-top: 100px;
-    margin-right: 120px;
-    background-color: #f29d9e;
-    border-radius: 30px;
-    max-height: 200px;
-    text-decoration-color: gray;
-    
-} */
 
-#contenedor{
-    box-shadow: 7px;
+.property-carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-carousel .carousel-control-prev,
+.property-carousel .carousel-control-next {
+    width: 10%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 16px 18px 8px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: #f7f9fc;
+    border-radius: 12px;
+    color: #30455c;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.icono {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex: 0 0 auto;
+}
+
+#imagenIconoJardin { background-image: url('/static/images/jardin.png'); }
+#imagenIconoPatio { background-image: url('/static/images/Patio.png'); }
+#imagenIconoGaraje { background-image: url('/static/images/garage.png'); }
+#imagenIconoSotano { background-image: url('/static/images/sotano.png'); }
+#imagenIconoBanio { background-image: url('/static/images/tina.png'); }
+#imagenIconoDormitorio { background-image: url('/static/images/cama.png'); }
+#imagenIconoMetroCuadrado { background-image: url('/static/images/metroCuadrado.png'); }
+
+.amenities-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 18px 4px;
+}
+
+.amenity-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: #eef4ff;
+    border: 1px solid #d6e5ff;
+    color: #0f223a;
+    padding: 6px 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.amenity-pill .icono {
+    width: 20px;
+    height: 20px;
+}
+
+.contact-btn {
+    background: linear-gradient(90deg, #0f223a 0%, #1f3f67 100%);
+    color: #f9fbff;
+    border: 0;
+    border-radius: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    padding: 12px 16px;
+}
+
+.media-card .contact-btn {
+    width: calc(100% - 36px);
+    margin: 18px;
+}
+
+.contact-btn:hover {
+    color: #ffffff;
+    background: linear-gradient(90deg, #172f4f 0%, #264f80 100%);
+}
+
+.details-card {
+    padding: 24px;
+}
+
+.listing-tag {
+    display: inline-block;
+    background: #fef3d7;
+    color: #7e5600;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.listing-title {
+    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+    color: #0f223a;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.location-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f8fc;
+    border: 1px solid #e7edf5;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+}
+
+.location-row h6 {
+    color: #627489;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.location-row p {
+    color: #1a2f47;
+    font-weight: 700;
+}
+
+.country-icon {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+}
+
+.location-text {
+    color: #4b5f75;
+    margin-bottom: 14px;
+}
+
+.price-box {
+    background: #0f223a;
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+
+.price-box h3 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.content-block {
+    border-top: 1px dashed #d6dde8;
+    padding-top: 14px;
+    margin-top: 14px;
+}
+
+.content-block h5 {
+    color: #153457;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.content-block p {
+    color: #536579;
+    margin: 0;
+    line-height: 1.65;
+    word-wrap: break-word;
+}
+
+.contact-modal-content {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.contact-modal-content .modal-header {
+    background: #f5f7fb;
+}
+
+.contact-modal-content .modal-title {
+    color: #0f223a;
+    font-weight: 700;
+}
+
+.contact-modal-body {
+    background: #ffffff;
+}
+
+@media (max-width: 992px) {
+    .ficha-page {
+        padding-top: 90px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }

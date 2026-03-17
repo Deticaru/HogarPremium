@@ -1,8 +1,5 @@
 ﻿{% extends 'inmobiliaria/base.html' %}
 {% load static %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
 {% load crispy_forms_tags %}
 {% load custom_filters %}
 
@@ -10,199 +7,114 @@
 
     {% block head %}
     <link href="{%static  'css/ficha.css'%}" rel="stylesheet">
-    <style>
-
-      .icono {
-          display: inline-block;
-          width: 50px;
-          height: 40px;
-          background-size: contain; 
-          background-repeat: no-repeat;
-          margin-right: 8px;
-          vertical-align: middle;
-      }
-      .BaÃ±oDormitorio {
-          display: inline-block;
-          width: 50px;
-          height: 40px;
-          background-size: contain; 
-          background-repeat: no-repeat;
-          margin-right: 8px;
-          vertical-align: middle;
-      }
-
-      #imagenIconoJardin{
-        background-image: url('/static/images/jardin.png');
-      }
-      #imagenIconoPatio{
-        background-image: url('/static/images/Patio.png');
-      }
-      #imagenIconoGaraje{
-        background-image: url('/static/images/garage.png');
-      }
-      #imagenIconoSotano{
-        background-image: url('/static/images/sotano.png');
-      }
-      #imagenIconoBanio{
-        background-image: url('/static/images/tina.png');
-
-      }
-      #imagenIconoDormitorio{
-        background-image: url('/static/images/cama.png');
-
-      }
-      #imagenIconoMetroCuadrado{
-         background-image: url('/static/images/metroCuadrado.png');
-      }
-
-
-
-
-
-      .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-        }
-      .cerca {
-        padding-left: 0;
-        padding-right: 10px;
-        align-content: center;
-      }
-      .text-container {
-          word-wrap: break-word;
-      }
-      #word{
-        word-wrap: break-word;
-      }
-    </style>
     {% endblock head %}
 
 
 {% block body %}
 
-<div class="container-fluid" style="padding-top: 100px;">
-
-  <div class="row" name="Imagen-Titulo-Precio">
-
-    <!-- Espacio vacÃ­o en pantallas pequeÃ±as -->
-    <div class="col-12 col-sm-1"></div>
-
-    <!-- Imagen -->
-    <div class="col-12 col-sm-5" name="imagen"> 
-      <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-inner" style="width: 100%; height: 500px">
-          {% for imagen in propiedad.images.all %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  <img src="{{ imagen.imagenPropiedad.url }}" class="d-block w-100 img-fluid" style="height: 500px; object-fit: cover;" alt="Imagen de {{ propiedad.tituloPropiedad }}">
-              </div>
-          {% endfor %}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-
-      <!-- InformaciÃ³n de la propiedad -->
-      <div class="row" style="padding-top: 10px;">
-        <div class="col-6 col-sm-4">
-            <h6><i class="BaÃ±oDormitorio" id="imagenIconoBanio"></i> {{propiedad.bannosPropiedad}} BaÃ±o/s</h6>
-            <h6><i class="BaÃ±oDormitorio" id="imagenIconoDormitorio"></i> {{propiedad.habitacionesPropiedad}} Dormitorio/s</h6>
-            <h6><i class="icono" id="imagenIconoMetroCuadrado"></i> {{propiedad.metroscubPropiedad}} MetrosÂ² </h6>
-        </div>  
-        <div class="col-6 col-sm-4">
-          {% if propiedad.jardinPropiedad == 'si' %}
-          <h6><i class="icono" id="imagenIconoJardin"></i>Tiene JardÃ­n</h6>
-          {% endif %}
-          {% if propiedad.patioPropiedad == 'si' %}
-          <h6><i class="icono" id="imagenIconoPatio"></i>Tiene Patio</h6>
-          {% endif %}
-          {% if propiedad.garagePropiedad == 'si' %}
-          <h6><i class="icono" id="imagenIconoGaraje"></i>Tiene Garaje</h6>
-          {% endif %}
-          {% if propiedad.sotanoPropiedad == 'si' %}
-          <h6><i class="icono" id="imagenIconoSotano"></i>Tiene SÃ³tano</h6>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- BotÃ³n de contacto -->
-      <div class="row" style="padding-top: 20px; padding-left: 70px;">
-        <div class="justify-content-center" style="margin-bottom: 30px;">
-          <button class="btn" type="reset" data-bs-toggle="modal" data-bs-target="#contacto_ficha" style="background-color: #f29d9e; width: 75%; padding: 9px; margin-top: 25px;" >Contacto</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TÃ­tulo y Precio -->
-    <div class="col-12 col-sm-5" name="Titulo-Precio">
-        <div class="row Titulo" style="color: #4e4e4e;">
-            <div class="col-12 col-sm-5">
-              <h2>{{ propiedad.tituloPropiedad }}</h2>
+<section class="ficha-page">
+  <div class="container py-4 py-lg-5">
+    <div class="row g-4 align-items-start">
+      <div class="col-12 col-xl-7">
+        <div class="ficha-card media-card">
+          <div id="carouselExampleIndicators" class="carousel slide property-carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              {% for imagen in propiedad.images.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img src="{{ imagen.imagenPropiedad.url }}" class="d-block w-100 img-fluid" alt="Imagen de {{ propiedad.tituloPropiedad }}" loading="lazy" decoding="async">
+                </div>
+              {% empty %}
+                <div class="carousel-item active">
+                  <img src="{% static 'images/icono.png' %}" class="d-block w-100 img-fluid" alt="Sin imagen" loading="lazy" decoding="async">
+                </div>
+              {% endfor %}
             </div>
-            <div class="col-12 col-sm-5 text-center" style="padding-top: 6px;">
-              <h6>PaÃ­s</h6>
-            </div>
-            <div class="col-12 col-sm-2 text-center">
-              <img src="{{ pais.iconoPais.url }}" alt="Icono de {{ pais.nombrePais }}" style="width: 50px;">
-            </div>
-        </div>
-        <div class="row Ubicaciom">
-          <div style="color: #707070; padding-top: 5px; text-align: left;">
-            <h5>UbicaciÃ³n {{ propiedad.direccionPropiedad }} </h5>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
           </div>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <i class="icono" id="imagenIconoBanio"></i>
+              <span>{{ propiedad.bannosPropiedad }} Baño/s</span>
+            </div>
+            <div class="stat-item">
+              <i class="icono" id="imagenIconoDormitorio"></i>
+              <span>{{ propiedad.habitacionesPropiedad }} Dormitorio/s</span>
+            </div>
+            <div class="stat-item">
+              <i class="icono" id="imagenIconoMetroCuadrado"></i>
+              <span>{{ propiedad.metroscubPropiedad }} Metros²</span>
+            </div>
+          </div>
+
+          <div class="amenities-wrap">
+            {% if propiedad.jardinPropiedad == 'si' %}<span class="amenity-pill"><i class="icono" id="imagenIconoJardin"></i>Jardín</span>{% endif %}
+            {% if propiedad.patioPropiedad == 'si' %}<span class="amenity-pill"><i class="icono" id="imagenIconoPatio"></i>Patio</span>{% endif %}
+            {% if propiedad.garagePropiedad == 'si' %}<span class="amenity-pill"><i class="icono" id="imagenIconoGaraje"></i>Garaje</span>{% endif %}
+            {% if propiedad.sotanoPropiedad == 'si' %}<span class="amenity-pill"><i class="icono" id="imagenIconoSotano"></i>Sótano</span>{% endif %}
+          </div>
+
+          <button class="btn contact-btn" type="button" data-bs-toggle="modal" data-bs-target="#contacto_ficha">Contactar por esta propiedad</button>
         </div>
-        <div class="row Precio" >
-          <div class="" style="padding-right: 0px; color: #818181; text-align: left;">
+      </div>
+
+      <div class="col-12 col-xl-5">
+        <aside class="ficha-card details-card">
+          <p class="listing-tag mb-2">Propiedad destacada</p>
+          <h1 class="listing-title">{{ propiedad.tituloPropiedad }}</h1>
+
+          <div class="location-row">
+            <div>
+              <h6 class="mb-1">País</h6>
+              <p class="mb-0">{{ pais.nombrePais }}</p>
+            </div>
+            <img src="{{ pais.iconoPais.url }}" alt="Icono de {{ pais.nombrePais }}" class="country-icon">
+          </div>
+
+          <p class="location-text">Ubicación: {{ propiedad.direccionPropiedad }}</p>
+
+          <div class="price-box">
             {% if pais.tipoMoneda == 'eu' %}
-            <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_euro }}</h3>
+              <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_euro }}</h3>
             {% elif pais.tipoMoneda == 'uf' %}
-            <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_uf }}</h3>
+              <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_uf }}</h3>
             {% endif %}
           </div>
-        </div>
-        <div class="row DescripciÃ³n" id="word" >
-          <p style=" color: #575757;">
-            {{ propiedad.descripcionPropiedad }}
-          </p>
-        </div>
-        <div class="row Caracteristica" id="word">
-          <div class="col">
-            <h5 style="color: #575757;">CaracterÃ­sticas:</h5>
-            <p style="padding-left: 10px; color: #575757;">
-              {{ propiedad.caracteristicasPropiedad }}
-            </p>
+
+          <div class="content-block">
+            <h5>Descripción</h5>
+            <p>{{ propiedad.descripcionPropiedad }}</p>
           </div>
-        </div>
+
+          <div class="content-block">
+            <h5>Características</h5>
+            <p>{{ propiedad.caracteristicasPropiedad }}</p>
+          </div>
+        </aside>
+      </div>
     </div>
-
-    <!-- Espacio vacÃ­o en pantallas pequeÃ±as -->
-    <div class="col-12 col-sm-1"></div>
-
   </div>
-</div>
+</section>
 
-
-<br><br><br>
 <div class="modal fade" id="contacto_ficha" tabindex="-1" aria-labelledby="contacto_fichaLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl"> <!-- Modal amplio -->
-    <div class="modal-content">
+    <div class="modal-content contact-modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="color: #818181;" id="contacto_fichaLabel">Contacto por una Propiedad</h5>
+        <h5 class="modal-title" id="contacto_fichaLabel">Contacto por una Propiedad</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <!-- Contenido del modal -->
         <div class="container needs-validation" novalidate>
-          <div class="row rounded" style="background-color: #ffffffe2;">
-            <div class="col-12 p-5" style="margin-left: auto; margin-right: auto;">
+          <div class="row rounded contact-modal-body">
+            <div class="col-12 p-5">
               <!-- Formulario -->
               <form id="form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -248,11 +160,11 @@
                   </div>
                 </div>
 
-                <!-- BotÃ³n Enviar -->
+                <!-- Botón Enviar -->
                 <div class="row">
                   <div class="col-0 col-sm-3"></div>
                   <div class="col-12 col-sm-6">
-                    <button class="btn" type="submit" style="background-color: #f29d9e; width: 100%; padding: 9px; margin-top: 25px;">Enviar</button>
+                    <button class="btn contact-btn w-100 mt-4" type="submit">Enviar</button>
                   </div>
                   <div class="col-0 col-sm-3"></div>
                 </div>
@@ -271,3 +183,4 @@
 {% block script %} 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock script %}
+

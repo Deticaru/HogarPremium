@@ -44,7 +44,7 @@
 
     <!-- Columna Formulario -->
     <div class="col-12 col-sm-6" style="border-radius: 40px;">
-      <h1 style="padding-top: 20px; color: #905a5a;" class="text-center">Inicio sesiÃ³n</h1>
+      <h1 style="padding-top: 20px; color: #905a5a;" class="text-center">Inicio sesión</h1>
       <div class="row" id="mover_inicio">
         <form class="form px-4 py-3" id="form" method="post" action="">
           {% csrf_token %}
@@ -63,18 +63,18 @@
             <div class="invalid-feedback">El campo Usuario es obligatorio.</div>
           </div>
           
-          <!-- Campo ContraseÃ±a -->
+          <!-- Campo Contraseña -->
           <div class="mb-3">
-            <label for="id_password" class="form-label" style="color: #905a5a;">ContraseÃ±a</label>
+            <label for="id_password" class="form-label" style="color: #905a5a;">Contraseña</label>
             <input 
               type="password" class="form-control" 
               id="id_password" name="password" 
               aria-describedby="passwordHelp">
-            <div id="passwordHelp" class="form-text">Una letra en mayÃºscula y un sÃ­mbolo.</div>
-            <div class="invalid-feedback">El campo contraseÃ±a es obligatorio.</div>
+            <div id="passwordHelp" class="form-text">Una letra en mayúscula y un símbolo.</div>
+            <div class="invalid-feedback">El campo contraseña es obligatorio.</div>
           </div>
           
-          <!-- BotÃ³n -->
+          <!-- Botón -->
           <div class="d-grid mt-4">
             <button type="submit" class="btn btn-primary" style="background-color: #f29d9e; border-color: black; color: rgb(36, 36, 36);">Ingresar</button>
           </div>
@@ -94,3 +94,4 @@
 {% block script %} 
 
 {% endblock script%}
+

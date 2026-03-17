@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 {% load bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -65,11 +65,12 @@
 </head>
 <body>
     <!--Natvar-->
-    <header id="header" style="margin-bottom: 89px;">
-        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background: #0F223A;">
+    <header id="header" class="site-header" style="margin-bottom: 0px;">
+        <nav class="navbar fixed-top navbar-expand-lg site-navbar">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'inicio' %}">
-                    <img class="logo" src="{% static 'images/icono.png' %}" alt="" style="width: 90px;">
+                <a class="navbar-brand site-brand" href="{% url 'inicio' %}">
+                    <img class="logo" src="{% static 'images/icono.png' %}" alt="Logo Hogar Premium" style="width: 84px;">
+                    <span class="brand-text">Hogar Premium</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -78,21 +79,21 @@
                     <!-- Links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-3">
-                            <a class="nav-link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+                            <a class="nav-link site-link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" aria-current="page" href="{% url 'arriendo' %}">En Arriendo</a>
+                            <a class="nav-link site-link" aria-current="page" href="{% url 'arriendo' %}">En Arriendo</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" aria-current="page" href="{% url 'venta' %}">En Venta</a>
+                            <a class="nav-link site-link" aria-current="page" href="{% url 'venta' %}">En Venta</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" aria-current="page" href="{% url 'compra' %}">Vende tu Propiedad</a>
+                            <a class="nav-link site-link" aria-current="page" href="{% url 'compra' %}">Vende tu Propiedad</a>
                         </li>
         
                         {% if es_admin %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle administracion" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle administracion site-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Administrar Página
                             </a>
                             <ul class="dropdown-menu">
@@ -101,11 +102,11 @@
                             </ul>
                         </li>
                         <li class="nav-item ms-2 d-flex" id="admin">
-                            <a class="nav-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
+                            <a class="nav-link site-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
                         </li>
                         {% else %}
                         <li class="nav-item me-3" id="usuario">
-                            <a class="nav-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
+                            <a class="nav-link site-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
                         </li>
                         {% endif %}
                     </ul>
@@ -120,9 +121,10 @@
         </div>
     <!-- </div> -->
     <!--Bajada-->
-    <footer  id="bajada" class="footerContainer" >
-        <div class="socialIcons">
-            <a href=""  style="color: black;">Volver arriba<i class="fa-brands "></i></a>
+    <footer id="bajada" class="footerContainer site-footer">
+        <div class="container footer-top">
+            <div class="footer-brand">Hogar Premium</div>
+            <a href="#header" class="back-top-link">Volver arriba <i class="fa-solid fa-arrow-up"></i></a>
         </div>
         <div class="footerBottom">
             <p>HogarPremium Copyright &copy; 2026</p>
@@ -134,3 +136,4 @@
     {% endblock %}
 </body>
 </html>
+
