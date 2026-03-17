@@ -1,0 +1,264 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+{% load custom_filters %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+
+
+    {% block title %} Hogar Premium {% endblock %}
+
+    {% block head %}
+    
+    <link href="{%static  'css/index.css'%}" rel="stylesheet">
+    <style>
+      .fondo {
+          background-image: url("/static/images/carrusel1.jpg");
+          background-size: cover;
+          padding-top: 30px;
+          padding-bottom: 30px;
+        }   
+        #contenedorBandeja{
+          background-color: aliceblue;
+        }
+
+
+        input[type="radio"] {
+          display: none;
+      }
+
+      /* Estilo del botÃ³n */
+      .custom-radio-button {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 5px;
+          background-color: #f0f0f0;
+          border: 2px solid #ccc;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s, border-color 0.3s;
+          text-align: center;
+      }
+
+      /* Estilo del botÃ³n cuando estÃ¡ seleccionado */
+      .content {
+          display: none;
+      }
+      #contenedorBandeja {
+         margin-bottom: 137px;
+      }
+    </style>
+      <script>
+          // FunciÃ³n para mostrar/ocultar contenido basado en el radio button seleccionado
+          function handleRadioChange(value) {
+              // Oculta todos los contenedores
+              document.querySelectorAll('.content').forEach(function(content) {
+                  content.style.display = 'none';
+              });
+  
+              // Muestra el contenedor correspondiente
+              document.getElementById('content-' + value).style.display = 'block';
+          }
+      </script>
+
+    {% endblock head %}
+
+
+{% block body %}
+
+
+<div class="container" style="background-color:  rgb(255, 255, 255);">
+  <div class="container" style="background-color:  rgb(255, 255, 255); padding-top: 20px;">
+    {% if accion == 'ver' %}
+      <div class="row">
+        <div class="col">
+          <form id="form" method="get" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form_html.idPropiedadContacto.value  %}
+            <div class="row">
+              <div class="col" style="padding-bottom: 20px;">
+                <label for="TitPropiedad">TÃ­tulo de la propiedad:</label>
+                <input type="text" class="form-control " disabled  onlyread value="{{propiedad_html.tituloPropiedad }}" id="TitPropiedad">
+              </div>
+              <div class="col"></div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col">
+                {{form_html.nombresContacto|as_crispy_field }}
+                </div>
+                <div class="col">
+                {{form_html.apellidosContacto|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                {{form_html.emailContacto|as_crispy_field }}
+                </div>
+                <div class="col-2">
+                {{form_html.codigoPaisCelular|as_crispy_field}}
+                </div>
+                <div class="col-4">
+                {{form_html.celularContacto|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+              {{form_html.motivoContacto|as_crispy_field }}
+            </div>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col">
+        <div class="row">
+  
+                <form>
+                    <input type="radio" id="option3" name="options" value="3" onclick="handleRadioChange(this.value)">
+                    <label for="option3" class="custom-radio-button">Todos</label>
+
+
+                    <input type="radio" id="option1" name="options" value="1" onclick="handleRadioChange(this.value)">
+                    <label for="option1" class="custom-radio-button">Buscan Propiedad</label>
+            
+                    <input type="radio" id="option2" name="custom-radio" value="2" onclick="handleRadioChange(this.value)">
+                    <label for="option2" class="custom-radio-button">Venden Propiedad</label>
+            
+                </form>
+                <!-- Contenido condicional -->
+            <div id="content-1" class="content">
+                <div class="card p-3 mb-5 mx-5 table-responsive">
+                    <table id="tabla-principal" class="table table-hover table-light table-striped table-bordered" >
+                        <thead class="">
+                            <tr>
+                                <th></th>
+                                <th>Fecha  </th>
+                                <th>Id Propiedad</th>
+                                <th>Nombre </th>  
+                                <th>Correo </th>
+                                <th>Celular</th>
+                                <th>Mensaje</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody style="word-wrap: break-word;" >
+                            <tr> 
+                              {% for contacto in contCompCoar_html %}
+                                <td>
+                                  <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
+                                </td>
+                                <td>{{contacto.fechaContacto|date:"d/m/Y"}}</td> 
+                                {% if contacto.idPropiedadContacto %}
+                                <td>{{contacto.idPropiedadContacto}}</td>
+                                {%else%}
+                                <td></td>
+                                {%endif%}
+                                
+                                <td>{{contacto.nombresContacto}} {{contacto.apellidosContacto}}</td>
+                                <td>{{contacto.emailContacto}}</td>
+                                <td>{{contacto.celularContacto}}</td>
+                                <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
+                                </tr>
+                              {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+            <div id="content-2" class="content">
+                <div class="card p-3 mb-5 mx-5 table-responsive">
+                    <table id="tabla-principal" class="table table-hover table-light table-striped table-bordered" >
+                        <thead class="">
+                            <tr>
+                                <th> </th>
+                                <th>Fecha </th>
+                                <th>tipo contacto </th>
+                                <th>Nombre </th>  
+                                <th>Correo </th>
+                                <th>Celular</th>
+                                <th>Mensaje</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody style="word-wrap: break-word;" >
+                            <tr> 
+                              {% for contacto in contVentVear_html %}
+                              <td>
+                                <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
+                              </td>
+                              <td>{{contacto.fechaContacto|date:"d/m/Y"}}</td>
+                              <td>{{contacto.tipoContacto}}</td>
+                              <td>{{contacto.nombresContacto}} {{contacto.apellidosContacto}}</td>
+                              <td>{{contacto.emailContacto}}</td>
+                              <td>{{contacto.celularContacto}}</td>
+                              <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
+
+    
+                            </tr> 
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="content-3" class="content" style="display: block;">
+              <div class="card p-3 mb-5 mx-5 table-responsive">
+                <table id="tabla-principal" class="table table-hover table-light table-striped table-bordered" >
+                    <thead class="">
+                        <tr>
+                            <th> </th>
+                            <th>Fecha </th>
+                            <th>Tipo contacto </th>
+                            <th>ID Propiedad </th>
+                            <th>Nombre </th>
+                            <th>Correo </th>
+                            <th>Celular</th>
+                            <th>Mensaje</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody style="word-wrap: break-word;" >
+                        <tr> 
+                          {% for contacto in todos_contactos_html  %}
+                          <td>
+                            <a href="{% url 'bandeja_mensaje' 'ver' contacto.idContacto %}" class="btn btn-primary btn-sm mx-1"> ver </a>
+                          </td>
+                            <td>{{contacto.fechaContacto|date:"d/m/Y"}}</td>
+                            <td>{{contacto.tipoContacto}}</td>
+                            {% if contacto.idPropiedadContacto %}
+                            <td>{{contacto.idPropiedadContacto}}</td>
+                            {%else%}
+                            <td></td>
+                            {%endif%}
+                            <td>{{contacto.nombresContacto}} {{contacto.apellidosContacto}}</td>
+                            <td>{{contacto.emailContacto}}</td>
+                            <td>{{contacto.celularContacto}}</td>
+                            <td>{{contacto.motivoContacto|acortar_titulo:25}}</td>
+
+                            </tr>
+                          {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            
+
+
+          
+        </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock body %}
+
+{% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>      
+{% endblock script %}

@@ -1,0 +1,4 @@
+.venv
+bien_estar/__pycache__
+bien_estar_app/__pycache__
+bien_estar_app/migrations/__pycache__

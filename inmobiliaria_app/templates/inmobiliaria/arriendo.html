@@ -1,0 +1,81 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load custom_filters %}
+    {% block title %} Hogar Premium {% endblock title %}
+
+    {% block head %}
+    <style>
+      #be-banner{
+        background-image: url("/static/images/bannercama.jpg");
+        background-position: center;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.228), rgba(0, 0, 0, 0.219)), url("/static/images/oficina.jpg");
+      
+        height: 200px;
+
+
+        
+        
+      }
+      h1 {
+        font-family: Times New Roman, sans-serif;
+      }
+      .fondo {
+        background-image: url("/static/images/carrusel1.jpg");
+        background-size: cover;
+        padding: 10px;
+      }
+      #cardcito{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+    </style>
+    <link href="{%static  'css/arriendo.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tarjetas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/property-card.css' %}">
+    {% endblock head %}
+
+
+{% block body %}
+
+
+
+  <div class="container-fluid" id="cardcito" style="background-color: rgb(235, 235, 235);">
+    <div class="container-fluid" id="be-banner" style="margin-bottom: 100px; " >
+      <div class="container" >
+        <div class="row text-center">
+      
+          <div class="text-center" style="margin-right: 300px; margin-top: 60px;">
+            <h1 class="center" style="color: white;">Propiedades en Arriendo </h1>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row g-4" style="margin-bottom: 50px; ">
+        {% if propiedades_arriendo %}
+        {% for propiedad in propiedades_arriendo %}
+        <div class="col-12 col-md-6 col-xl-4" >
+          {% include 'inmobiliaria/components/property_card.html' with propiedad=propiedad %}
+        </div>
+      {% endfor %}
+      {% else %}
+        <div class="text-center">
+          <h1>No hay propiedades de momento </h1>
+
+        </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- coemntario -->
+
+{% endblock body %}
+
+{% block script %} 
+
+{% endblock script %}

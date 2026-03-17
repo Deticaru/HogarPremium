@@ -1,0 +1,149 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+{% block title %} Hogar Premium {% endblock title %}
+
+{% block head %}
+  <style>
+    input[type='radio'] { 
+     transform: scale(1.5); 
+    }
+    label[for='tipoPropiedad']{
+      padding-left: 10px;
+    }
+    .fondo {
+        background-image: url("/static/images/carrusel1.jpg");
+        background-size: cover;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }   
+  
+  </style>
+{% endblock head %}
+
+
+{% block body %}
+{% if es_admin %}
+  <div class="container" style="margin-bottom: 50px;">
+    <div class="card" style="padding-top: 25px;">
+      <H3 class="text-center" style="margin-bottom: 30px;">Crear Nueva Propiedad</H3>
+      <div class="col">
+        <form id="form" method="post" enctype="multipart/form-data">
+          <div class="row p-3">
+            <div class="col-lg-6">
+              {% csrf_token %}
+              {{ propiedad_form.tituloPropiedad|as_crispy_field }}
+              {{ propiedad_form.direccionPropiedad|as_crispy_field }}
+              {{ propiedad_form.precioPropiedad|as_crispy_field }}
+              {{ propiedad_form.paisPropiedad|as_crispy_field }}
+              {{ propiedad_form.tipoPropiedad|as_crispy_field }}
+              {{ propiedad_form.disponibilidadPropiedad|as_crispy_field }}
+              {{ propiedad_form.habitacionesPropiedad|as_crispy_field }}
+              {{ propiedad_form.bannosPropiedad|as_crispy_field }}
+              {{ propiedad_form.metroscubPropiedad|as_crispy_field }}
+              {{ propiedad_form.ofertaPropiedad|as_crispy_field }}
+              <p style="color: grey;">Ingresar un "0" si la propiedad no tendrÃ¡ oferta.</p>
+
+            
+            </div>
+            <div class="col-lg-6" >
+              {{ propiedad_form.descripcionPropiedad|as_crispy_field }}
+              {{ propiedad_form.caracteristicasPropiedad|as_crispy_field }}
+              {{ propiedad_form.jardinPropiedad|as_crispy_field }}
+              {{ propiedad_form.patioPropiedad|as_crispy_field }}
+              {{ propiedad_form.garagePropiedad|as_crispy_field }}
+              {{ propiedad_form.sotanoPropiedad|as_crispy_field }}
+              {% if accion == 'crear' %}
+                {{ imagen_form_html|crispy }}
+              {% endif %}
+              <div style="display: flex; justify-content: center; align-items: center;" class="container">
+                <button class="btn btn-primary" style="width: 180px;height: 50px;" id="boton_enviar"  type="submit">Guardar Propiedad</button>
+                <a href="{% url 'admin_propiedades' 'crear' 0 %}" class="btn btn-outline-success" style="width: 180px; padding-top: 12px; padding-bottom: 12px; margin-left: 10px;">Crear una Nueva Propiedad</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card p-3 mb-5 mx-5 table-responsive">
+    <table id="tabla-principal" class="table table-hover table-light table-striped table-bordered" >
+        <thead class="">
+            <tr>
+                <th>Titulo </th>
+                <th>DirecciÃ³n </th>   
+                <th>Precio </th>
+                <th>PaÃ­s </th>
+                <th>Arriendo o Venta </th>
+                <th>Disponibilidad </th>
+                <th>Habitaciones </th>
+                <th>BaÃ±os</th>
+                <th>Metros Cuadrado</th>
+                <th>Porcentaje de Oferta</th>
+                <th>Portada</th>
+            </tr>
+        </thead>
+        <tbody style="word-wrap: break-word;" >
+            <tr> 
+              {% for propiedad in propiedades_todas %}
+              <td >{{propiedad.tituloPropiedad|acortar_titulo:15}}</td>
+              <td>{{propiedad.direccionPropiedad|acortar_titulo:15}}</td>
+              {% if propiedad.paisPropiedad.tipoMoneda == 'eu' %}
+              <td>{{propiedad.precioPropiedad|formatear_dinero_euro}}</td>
+              {% elif propiedad.paisPropiedad.tipoMoneda == 'uf' %}
+              <td>{{propiedad.precioPropiedad|formatear_dinero_uf}}</td>
+              {% endif %}
+              <td>{{propiedad.paisPropiedad.nombrePais}}</td>
+              <td>{{propiedad.get_tipoPropiedad_display}}</td>
+              <td>{{propiedad.get_disponibilidadPropiedad_display}}</td>
+              <td>{{propiedad.habitacionesPropiedad}}</td>
+              <td>{{propiedad.bannosPropiedad}}</td>
+              <td>{{propiedad.metroscubPropiedad}}</td>
+              {% if propiedad.ofertaPropiedad > 0 %}
+              <td>{{propiedad.ofertaPropiedad|formatear_descuento}}</td>
+              {% else %}
+              <td>Sin oferta</td>
+              {% endif %}
+              <td>
+                {% if propiedad.images.all %}
+                <img src="{{ propiedad.images.all.0.imagenPropiedad.url }}" class="card-img-top" alt="..." style="height: 200px; width: 200px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'imagenes/icono.png' %}" class="card-img-top">
+                {% endif %}
+              </td>
+              <td></td>
+              <td>
+                <div class="btn-group" role="group">
+                  <div class="container-fluid">
+                    <div class="row" style="margin-top: 30px;">
+                      <div>
+                        <a href="{% url 'admin_propiedades' 'actualizar' propiedad.idPropiedad %}" class="btn btn-outline-primary btn-sm mx-1" style="min-width: 80px;"> Editar </a>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px;">
+                      <form action="{% url 'admin_propiedades' 'eliminar' propiedad.idPropiedad %}" method="post">
+                        {% csrf_token %}  
+                        <button class="btn btn-danger btn-sm mx-1" style="min-width: 80px;" type="submit">Eliminar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+  </div>
+{% endif %}
+
+{% endblock body %}
+
+{% block script %} 
+
+{% endblock script %}
+
+

@@ -1,0 +1,121 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+{% load custom_filters %}
+
+
+    {% block title %} Hogar Premium {% endblock %}
+
+    {% block head %}
+    
+    <link href="{%static  'css/index.css'%}" rel="stylesheet">
+    <style>
+      .fondo {
+        background-color: rgb(237, 237, 237);
+      }
+      #cuerpo{
+
+        background-color: rgb(255, 255, 255);
+      }
+      body {
+        font-family: sans-serif;
+      }
+      .carousel-control-prev-icon {
+          width: 60px;
+          height: 60px;
+          background-image: url("/static/images/arrow-left.png");
+      }
+      
+      .carousel-control-next-icon {
+          width: 60px;
+          height: 60px;
+          background-image: url("/static/images/arrow-right.png");
+      }
+
+    </style>
+    <link rel="stylesheet" href="{% static 'css/tarjetas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/property-card.css' %}">
+    {% endblock head %}
+
+
+{% block body %}
+
+
+<!-- Carrusel -->
+<div class="carousel slide mx-auto" style="width: 100%;" id="carrusel-inicio" style="margin-top: 89px">
+    <div class="carousel-inner">
+        <div class="carousel-item item active">
+            <img src="{% static 'images/carrusel.png' %}" class="d-block pos img-fluid" alt="...">
+            <div class="overlay">
+                <div class="container-fluid" style="background-color: rgba(15, 34, 58, 0.86); padding-top: 20px; min-height: 160px; width: 100%; position: absolute; bottom: 0px;">
+                        <h2 class="text-center" style="color: rgba(255, 255, 255, 0.915); font-weight: bold;">EXPLORA TUS SUEÃ‘OS </h2>
+                        <div class="container" style="width: 60%;">
+                            <h5 class="text-center" style="color: rgba(255, 255, 255, 0.837);">Tu vida ideal en tu hogar ideal</h5>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item item">
+          <img src="{% static 'images/carrusel2.jpg' %}" class="d-block pos" alt="">
+          <div class="overlay">
+              <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.73); padding-top: 20px; min-height: 160px; width: 100%; position: absolute; bottom: 0px;">
+                      <h2 class="text-center" style="color: rgba(255, 255, 255, 0.915); font-weight: bold;">EXPLORA TU SUEÃ‘O</h2>
+                      <div class="container" style="width: 60%;">
+                          <h5 class="text-center" style="color: rgba(255, 255, 255, 0.837);"></h5>
+                      </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carrusel-inicio" data-bs-slide="prev" style="height: 700px;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carrusel-inicio" data-bs-slide="next" style="height: 700px;">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+</div>
+<div class="container-fluid">
+  <div class="container" style="width: 75%; margin-bottom: 50px; padding-top: 70px;">  
+    <div class="row">
+      <!-- Texto -->
+      <div class="col-12 col-md-8  col-sm-8">
+        <h3 class="text-center" style="color: #0F223A; padding-bottom: 30px;">Bienvenidos a Hogar Premium</h3>
+        <div>
+          <p style="font-size: 14px;">
+            Estamos dedicados a ofrecer soluciones completas para todas sus necesidades inmobiliarias. Ya sea que estÃ© buscando arrendar una propiedad para establecer su nuevo hogar o comprar la casa de sus sueÃ±os, estamos aquÃ­ para ayudarlo a encontrar la opciÃ³n perfecta.
+            <br><br>
+            AdemÃ¡s, si desea vender su propiedad, nuestro equipo de expertos estÃ¡ listo para guiarlo en cada paso del proceso, asegurando una venta rÃ¡pida y efectiva. TambiÃ©n ofrecemos un servicio integral de gestiÃ³n de arriendos para aquellos propietarios que desean arrendar su propiedad, ocupÃ¡ndonos de todo, desde la promociÃ³n hasta la administraciÃ³n del arriendo, para que usted pueda estar tranquilo.
+            <br><br>
+            ConfÃ­e en nosotros para convertir su experiencia inmobiliaria en algo sencillo y satisfactorio. Â¡Estamos aquÃ­ para hacerlo realidad!
+          </p>
+        </div>
+      </div>
+      <!-- Imagen -->
+      <div class="col-12 col-md-4 col-sm-4 text-center">
+        <img src="/static/images/14502.jpg" alt="Hogar Premium" class="img-fluid" style="max-height: 300px;">
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<!-- NUEVAS TARJETAS DE PROPIEDADES -->
+
+<br><br>
+<div class="container pb-5">
+  <div class="row g-4">
+    {% for propiedad in propiedades_todas %}
+    <div class="col-12 col-md-6 col-xl-4">
+      {% include 'inmobiliaria/components/property_card.html' with propiedad=propiedad %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock body %}
+
+{% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>      
+{% endblock script %}

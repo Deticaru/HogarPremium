@@ -1,0 +1,80 @@
+{% load static %}
+{% load custom_filters %}
+
+<div class="card property-card h-100">
+  <a href="{% url 'ficha' propiedad.idPropiedad %}" class="property-link h-100">
+    <div class="property-media">
+      {% if propiedad.images.all.0 %}
+        <img src="{{ propiedad.images.all.0.imagenPropiedad.url }}" alt="{{ propiedad.tituloPropiedad }}">
+      {% else %}
+        <img src="{% static 'images/sin-imagen.png' %}" alt="Sin imagen disponible">
+      {% endif %}
+
+      {% if propiedad.paisPropiedad.iconoPais %}
+        <img src="{{ propiedad.paisPropiedad.iconoPais.url }}" alt="{{ propiedad.paisPropiedad }}" class="property-flag">
+      {% endif %}
+
+      {% if propiedad.ofertaPropiedad > 0 %}
+        <span class="property-tag">Oferta disponible</span>
+      {% endif %}
+    </div>
+
+    <div class="property-body d-flex flex-column">
+      <div class="property-address d-flex align-items-center">
+        <i class="direccion-icono icono"></i>
+        <span>{{ propiedad.direccionPropiedad }}</span>
+      </div>
+
+      <h5 class="property-title">{{ propiedad.tituloPropiedad|acortar_titulo:60 }}</h5>
+
+      <div class="mb-2">
+        <div class="property-price">
+          {% if propiedad.ofertaPropiedad > 0 %}
+            {% if propiedad.paisPropiedad.tipoMoneda == 'eu' %}
+              {{ propiedad.precioPropiedad|descuento_propiedad:propiedad.ofertaPropiedad|formatear_dinero_euro }}
+            {% elif propiedad.paisPropiedad.tipoMoneda == 'uf' %}
+              {{ propiedad.precioPropiedad|descuento_propiedad:propiedad.ofertaPropiedad|formatear_dinero_uf }}
+            {% endif %}
+          {% else %}
+            {% if propiedad.paisPropiedad.tipoMoneda == 'eu' %}
+              {{ propiedad.precioPropiedad|formatear_dinero_euro }}
+            {% elif propiedad.paisPropiedad.tipoMoneda == 'uf' %}
+              {{ propiedad.precioPropiedad|formatear_dinero_uf }}
+            {% endif %}
+          {% endif %}
+        </div>
+
+        {% if propiedad.ofertaPropiedad > 0 %}
+          <div class="property-old-price mt-1">
+            {% if propiedad.paisPropiedad.tipoMoneda == 'eu' %}
+              {{ propiedad.precioPropiedad|formatear_dinero_euro }}
+            {% elif propiedad.paisPropiedad.tipoMoneda == 'uf' %}
+              {{ propiedad.precioPropiedad|formatear_dinero_uf }}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="row property-meta text-center g-0 mt-auto">
+        <div class="col-4">
+          <div class="property-meta-item">
+            <i class="fa-solid fa-bed"></i>
+            <span>{{ propiedad.habitacionesPropiedad }} Hab.</span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="property-meta-item">
+            <i class="fa-solid fa-bath"></i>
+            <span>{{ propiedad.bannosPropiedad }} Baños</span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="property-meta-item">
+            <i class="fa-solid fa-ruler-combined"></i>
+            <span>{{ propiedad.metroscubPropiedad }} m²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

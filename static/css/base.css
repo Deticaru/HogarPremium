@@ -1,0 +1,80 @@
+
+:root {
+    --brand-navy: #0F223A;
+    --brand-gold: #C89A2B;
+}
+
+li a {
+    background-color: white;
+    border-radius: 15px;
+    color: var(--brand-navy);
+}
+
+.administracion{
+    background-color: var(--brand-gold);
+    border-radius: 15px;
+    color: var(--brand-navy) !important;
+    font-weight: 700;
+}
+
+.nav-link:hover {
+    background-color: var(--brand-navy);
+    border-color: var(--brand-navy);
+    color: white;
+    border-radius: 15px;
+}
+
+.administracion:hover {
+    background-color: #e0b448;
+    color: var(--brand-navy);
+    border-radius: 15px;
+}
+
+footer{
+    background-color: #ffffff;
+    display: grid;
+    min-height: 1vh;
+    grid-template-rows: auto 1fr auto;
+}
+.footerContainer{
+    width: 100%;
+    
+}
+.socialIcons{
+    display: flex;
+    justify-content: center;
+}
+.socialIcons a{
+    text-decoration: none;
+    padding: 10px ;
+    background-color: white;
+    margin: 10px;
+    border-radius: 13px;
+}
+.socialIcons a i{
+    font-size: 2em;
+    color: var(--brand-navy);
+    opacity: 0.9;
+
+}
+/* animacion en los iconos */
+
+.socialIcons a:hover{
+    background-color:  #f2e5c2;
+    transition: 0.5s;
+}
+
+.footerBottom{
+    background-color: var(--brand-navy);
+    text-align: center;
+
+}
+.footerBottom p{
+    color: #f8f5ed;
+}
+
+body {
+    background-color: #fa9092;
+}
+
+

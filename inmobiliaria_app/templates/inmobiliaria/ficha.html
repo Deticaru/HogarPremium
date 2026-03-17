@@ -1,0 +1,273 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+
+    {% block title %} Hogar Premium {% endblock title %}
+
+    {% block head %}
+    <link href="{%static  'css/ficha.css'%}" rel="stylesheet">
+    <style>
+
+      .icono {
+          display: inline-block;
+          width: 50px;
+          height: 40px;
+          background-size: contain; 
+          background-repeat: no-repeat;
+          margin-right: 8px;
+          vertical-align: middle;
+      }
+      .BaÃ±oDormitorio {
+          display: inline-block;
+          width: 50px;
+          height: 40px;
+          background-size: contain; 
+          background-repeat: no-repeat;
+          margin-right: 8px;
+          vertical-align: middle;
+      }
+
+      #imagenIconoJardin{
+        background-image: url('/static/images/jardin.png');
+      }
+      #imagenIconoPatio{
+        background-image: url('/static/images/Patio.png');
+      }
+      #imagenIconoGaraje{
+        background-image: url('/static/images/garage.png');
+      }
+      #imagenIconoSotano{
+        background-image: url('/static/images/sotano.png');
+      }
+      #imagenIconoBanio{
+        background-image: url('/static/images/tina.png');
+
+      }
+      #imagenIconoDormitorio{
+        background-image: url('/static/images/cama.png');
+
+      }
+      #imagenIconoMetroCuadrado{
+         background-image: url('/static/images/metroCuadrado.png');
+      }
+
+
+
+
+
+      .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+        }
+      .cerca {
+        padding-left: 0;
+        padding-right: 10px;
+        align-content: center;
+      }
+      .text-container {
+          word-wrap: break-word;
+      }
+      #word{
+        word-wrap: break-word;
+      }
+    </style>
+    {% endblock head %}
+
+
+{% block body %}
+
+<div class="container-fluid" style="padding-top: 100px;">
+
+  <div class="row" name="Imagen-Titulo-Precio">
+
+    <!-- Espacio vacÃ­o en pantallas pequeÃ±as -->
+    <div class="col-12 col-sm-1"></div>
+
+    <!-- Imagen -->
+    <div class="col-12 col-sm-5" name="imagen"> 
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-inner" style="width: 100%; height: 500px">
+          {% for imagen in propiedad.images.all %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img src="{{ imagen.imagenPropiedad.url }}" class="d-block w-100 img-fluid" style="height: 500px; object-fit: cover;" alt="Imagen de {{ propiedad.tituloPropiedad }}">
+              </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- InformaciÃ³n de la propiedad -->
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-6 col-sm-4">
+            <h6><i class="BaÃ±oDormitorio" id="imagenIconoBanio"></i> {{propiedad.bannosPropiedad}} BaÃ±o/s</h6>
+            <h6><i class="BaÃ±oDormitorio" id="imagenIconoDormitorio"></i> {{propiedad.habitacionesPropiedad}} Dormitorio/s</h6>
+            <h6><i class="icono" id="imagenIconoMetroCuadrado"></i> {{propiedad.metroscubPropiedad}} MetrosÂ² </h6>
+        </div>  
+        <div class="col-6 col-sm-4">
+          {% if propiedad.jardinPropiedad == 'si' %}
+          <h6><i class="icono" id="imagenIconoJardin"></i>Tiene JardÃ­n</h6>
+          {% endif %}
+          {% if propiedad.patioPropiedad == 'si' %}
+          <h6><i class="icono" id="imagenIconoPatio"></i>Tiene Patio</h6>
+          {% endif %}
+          {% if propiedad.garagePropiedad == 'si' %}
+          <h6><i class="icono" id="imagenIconoGaraje"></i>Tiene Garaje</h6>
+          {% endif %}
+          {% if propiedad.sotanoPropiedad == 'si' %}
+          <h6><i class="icono" id="imagenIconoSotano"></i>Tiene SÃ³tano</h6>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- BotÃ³n de contacto -->
+      <div class="row" style="padding-top: 20px; padding-left: 70px;">
+        <div class="justify-content-center" style="margin-bottom: 30px;">
+          <button class="btn" type="reset" data-bs-toggle="modal" data-bs-target="#contacto_ficha" style="background-color: #f29d9e; width: 75%; padding: 9px; margin-top: 25px;" >Contacto</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TÃ­tulo y Precio -->
+    <div class="col-12 col-sm-5" name="Titulo-Precio">
+        <div class="row Titulo" style="color: #4e4e4e;">
+            <div class="col-12 col-sm-5">
+              <h2>{{ propiedad.tituloPropiedad }}</h2>
+            </div>
+            <div class="col-12 col-sm-5 text-center" style="padding-top: 6px;">
+              <h6>PaÃ­s</h6>
+            </div>
+            <div class="col-12 col-sm-2 text-center">
+              <img src="{{ pais.iconoPais.url }}" alt="Icono de {{ pais.nombrePais }}" style="width: 50px;">
+            </div>
+        </div>
+        <div class="row Ubicaciom">
+          <div style="color: #707070; padding-top: 5px; text-align: left;">
+            <h5>UbicaciÃ³n {{ propiedad.direccionPropiedad }} </h5>
+          </div>
+        </div>
+        <div class="row Precio" >
+          <div class="" style="padding-right: 0px; color: #818181; text-align: left;">
+            {% if pais.tipoMoneda == 'eu' %}
+            <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_euro }}</h3>
+            {% elif pais.tipoMoneda == 'uf' %}
+            <h3>Precio: {{ propiedad.precioPropiedad|formatear_dinero_uf }}</h3>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row DescripciÃ³n" id="word" >
+          <p style=" color: #575757;">
+            {{ propiedad.descripcionPropiedad }}
+          </p>
+        </div>
+        <div class="row Caracteristica" id="word">
+          <div class="col">
+            <h5 style="color: #575757;">CaracterÃ­sticas:</h5>
+            <p style="padding-left: 10px; color: #575757;">
+              {{ propiedad.caracteristicasPropiedad }}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <!-- Espacio vacÃ­o en pantallas pequeÃ±as -->
+    <div class="col-12 col-sm-1"></div>
+
+  </div>
+</div>
+
+
+<br><br><br>
+<div class="modal fade" id="contacto_ficha" tabindex="-1" aria-labelledby="contacto_fichaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl"> <!-- Modal amplio -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: #818181;" id="contacto_fichaLabel">Contacto por una Propiedad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido del modal -->
+        <div class="container needs-validation" novalidate>
+          <div class="row rounded" style="background-color: #ffffffe2;">
+            <div class="col-12 p-5" style="margin-left: auto; margin-right: auto;">
+              <!-- Formulario -->
+              <form id="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Nombres y Apellidos -->
+                <div class="row">
+                  <div class="col-12 col-sm-6 mb-3">
+                    {{ contacto_form.nombresContacto|as_crispy_field }}
+                  </div>
+                  <div class="col-12 col-sm-6 mb-3">
+                    {{ contacto_form.apellidosContacto|as_crispy_field }}
+                  </div>
+                </div>
+
+                <!-- Email y Celular -->
+                <div class="row">
+                  <div class="col-12 col-sm-6 mb-3">
+                    {{ contacto_form.emailContacto|as_crispy_field }}
+                  </div>
+                  <div class="col-12 col-sm-6 mb-3">
+                    <div class="row">
+                      <div class="col-4">
+                        {{ contacto_form.codigoPaisCelular|as_crispy_field }}
+                      </div>
+                      <div class="col-8">
+                        {{ contacto_form.celularContacto|as_crispy_field }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Motivo del contacto -->
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    {{ contacto_form.motivoContacto|as_crispy_field }}
+                  </div>
+                </div>
+
+                <!-- Captcha -->
+                <div class="row">
+                  <div class="col-12 text-center mb-3">
+                    {{ contacto_form.captcha }}
+                  </div>
+                </div>
+
+                <!-- BotÃ³n Enviar -->
+                <div class="row">
+                  <div class="col-0 col-sm-3"></div>
+                  <div class="col-12 col-sm-6">
+                    <button class="btn" type="submit" style="background-color: #f29d9e; width: 100%; padding: 9px; margin-top: 25px;">Enviar</button>
+                  </div>
+                  <div class="col-0 col-sm-3"></div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+
+{% block script %} 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock script %}

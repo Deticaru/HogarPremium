@@ -1,0 +1,190 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load crispy_forms_tags %}
+{% load custom_filters %}
+
+    {% block title %} Hogar Premium {% endblock title %}
+
+    {% block head %}
+    <link href="{%static  'css/ventaArriendo.css'%}" rel="stylesheet">
+    <style>
+
+
+        
+        #fondo {
+            background-image: url("/static/images/hdfondobanner.jpg");
+            background-size: cover;
+            padding-top: 70px;
+            height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.409), rgba(0, 0, 0, 0.381)), url("/static/images/hdfondobanner.jpg");
+
+
+        }
+        #body {
+          background-color: #ffffff;
+          padding-top: 70px;
+        }
+        #informacion{
+          padding-top: 150px;
+        }
+
+        #background {
+            /* background-color:rgba(237, 237, 237, 0.758);
+            border-radius: 10px; */
+            color: white;
+        }
+        h4 {
+        font-family: Times New Roman, sans-serif;
+        }
+        h1 {
+        font-family: Times New Roman, sans-serif;
+        }
+        
+
+
+    </style>
+    {% endblock head %}
+
+
+{% block body %}
+
+<!-- banner -->
+<div class="container-fluid" id="fondo">
+    <div class="container" id="background">
+        <div class="row">
+            <h1 class="text-center" style="padding-top: 28px; margin-bottom: 30px;">
+                Servicio para arrendar o vender tu propiedad
+            </h1>
+        </div>
+    </div>
+</div>
+<!-- BODY (contacto mÃ¡s informaciÃ³n) -->
+<div class="container-fluid">
+    <div class="row" id="body">
+        <!-- Espaciado lateral -->
+        <div class="col-sm-12 col-md-1"></div>
+
+        <!-- Contacto -->
+        <div class="col-sm-12 col-md-5" id="contactando">
+            <form id="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="nombre mb-5">
+                            {{ form_html.nombresContacto|as_crispy_field }}
+                            <div id="NombreHelp" class="form-text"></div>
+                            <div class="invalid-feedback">
+                                El campo Nombre es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="apellido">
+                            {{ form_html.apellidosContacto|as_crispy_field }}
+                            <div id="ApellidoHelp" class="form-text"></div>
+                            <div class="invalid-feedback">
+                                El campo Apellido es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="correo">
+                            {{ form_html.emailContacto|as_crispy_field }}
+                            <div id="CorreoHelp" class="form-text"></div>
+                            <div class="invalid-feedback">
+                                El campo Correo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                {{ form_html.codigoPaisCelular|as_crispy_field }}
+                            </div>
+                            <div class="col-sm-7">
+                                {{ form_html.celularContacto|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{ form_html.tipoContacto|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{ form_html.motivoContacto|as_crispy_field }}
+                        <center>{{ form_html.captcha }}</center>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn" type="submit" style="background-color: #f29d9e; width: 100%; padding: 9px; margin-top: 25px;">Enviar</button>
+                    </div>
+                </div>
+                <!-- TOAST -->
+                <div aria-live="polite" aria-atomic="true" class="position-relative">
+                    <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+                        {% if messages %}
+                            <div class="toast show" id="messageToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                                <div class="toast-body text-center">
+                                    {% for message in messages %}
+                                        <p class="mb-3 {{ message.tags }}">{{ message }}</p>
+                                    {% endfor %}
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary" onclick="$('#messageToast').toast('hide');">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- TOAST -->
+            </form>
+        </div>
+
+        <!-- InformaciÃ³n -->
+        <div class="col-sm-12 col-md-5">
+            <div class="row" id="informacion">
+                <h4>
+                    HogarPremium nace para ayudar en los temas habitacionales de nuestros clientes.
+                    <br><br>
+                    Una de las necesidades bÃ¡sicas del ser humano es tener un lugar en el cual descansar, protegerse y compartir con sus seres queridos, un hogar.
+                    Los corredores de propiedades trabajamos dando aviso de propiedades que alguien ofrece o busca, ya sea para compra, venta o en temas de arriendo.
+                    Ofrecemos confiabilidad, seriedad, integridad, Ã©tica profesional e interÃ©s en cumplir con la tarea encomendada.
+                    <br><br>
+                    Agradecemos su confianza en que encontraremos lo que busca.
+                </h4>
+            </div>
+        </div>
+
+        <!-- Espaciado lateral -->
+        <div class="col-sm-12 col-md-1"></div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        {% if messages %}
+            $('#messageToast').toast('show');
+        {% endif %}
+    });
+</script>
+{% endblock script %}
+

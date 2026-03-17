@@ -1,0 +1,178 @@
+﻿{% extends 'inmobiliaria/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+    {% block title %}Contacto{% endblock title %}
+    {% block head %}
+      <style>
+        .fondo{
+          background-image: url("/static/images/carrusel1.jpg");
+          background-size: cover;
+          padding: 10px;
+          padding-bottom: 150px;
+          
+        }
+        .footer {
+          padding-top: 100px;
+
+        }
+      </style>
+    {% endblock head %}
+    
+    
+    
+    
+</head>
+{% block body %}
+
+        
+<div class="container needs-validation" novalidate >
+  <div class="row rounded" style="margin-top: 2vh; box-shadow: 7px 13px 37px #2b2a2a; background-color: #ffffffe2;">
+    <div class="col p-5" style="margin-left: 3%; margin-right: 3%; width: 50vh;">
+      <h3 style="color: #818181;">Contacto por una Propiedad</h3>
+      <!--AquÃ­ comienzan los formularios con sus respectivas validaciones-->
+      <form>
+          <!--RUT-->
+          <div class="row">
+            <div class="col">
+              <div class="rut mb-2">
+                  <label  for="rut" class="form-label">
+                    RUT
+                  </label>
+                  <input required placeholder="Ej: 12123123-K"
+                    type="text" class="form-control" 
+                    id="rut" name="rut" 
+                    aria-describedby="rutHelp">
+                  <div id="rutHelp" class="form-text">
+                    Escribe el RUT sin puntos y con guiÃ³n.
+                  </div>
+                  <div class="invalid-feedback">
+                    El campo RUT es obligatorio.
+                  </div>
+              </div>
+            </div>
+            <div class="col-8"></div>
+          </div>
+          <!-- NOMBRE Y APELLIDOS -->
+          <div class="row">
+              <div class="col">
+                  <div class="Nombre mb-2">
+                      <label for="Nombre" class="form-label">
+                        Nombre
+                      </label>
+                      <input required placeholder="Ej: Ignacio Andres"
+                        type="text" class="form-control" 
+                        id="Nombre" name="Nombre" 
+                        aria-describedby="NombreHelp">
+                      <div id="NombreHelp" class="form-text">
+                      </div>
+                      <div class="invalid-feedback">
+                        El campo Nombre es obligatorio.
+                      </div>
+                  </div>
+              </div>
+              <div class="col">
+                  <div class="Apellido mb-2">
+                          <label for="Apellido" class="form-label">
+                            Apellido
+                          </label>
+                          <input required placeholder="Ej: Garcias Salazar"
+                            type="text" class="form-control" 
+                            id="Apellido" name="Apellido" 
+                            aria-describedby="ApellidoHelp">
+                          <div id="ApellidoHelp" class="form-text">
+                            
+                          </div>
+                          <div class="invalid-feedback">
+                            El campo apellido es obligatorio.
+                          </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+                <!-- CORREO ELECTRÃ“NICO -->
+                <div class="col">
+                  <div class="Correo mb-2">
+                      <label for="Correo" class="form-label">
+                        Email
+                      </label>
+                      <input required placeholder="Ej: nombre@direccion.com"
+                        type="email" class="form-control" 
+                        id="Correo" name="Correo" 
+                        aria-describedby="CorreoHelp">
+                      <div id="CorreoHelp" class="form-text">
+                        
+                      </div>
+                      <div class="invalid-feedback">
+                        El campo Correo es obligatorio
+                      </div>
+                    </div>
+                </div>
+                <!--CELULAR-->
+                <div class="col">
+                  <div class="Celular mb-2">
+                      <label for="Celular" class="form-label">
+                        Telefono
+                      </label>
+                      <input required placeholder="+569..."
+                        type="text" class="form-control" 
+                        id="Celular" name="Nombre" 
+                        aria-describedby="NombreHelp">
+                      <div id="NombreHelp" class="form-text">
+                      </div>
+                      <div class="invalid-feedback">
+                        El campo Nombre es obligatorio.
+                      </div>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+          </div>
+          <!-- MOTIVACIÃ“N DE CONTACTO -->
+          <div class="Motivo mb-2">
+              <label for="Mensaje" class="form-label">
+                Mensaje 
+              </label>
+              <textarea required placeholder="Mi motivo de contacto es..."
+              type="text" class="form-control" 
+              id="Mensaje" name="Direccion" rows="4" cols="30" style="max-height: 200px; min-height: 150px;"></textarea>
+              <div aria-describedby="DireccionHelp">
+
+              </div>
+              
+              <div id="DireccionHelp" class="form-text">
+              
+              <br>
+              
+              
+              </div>
+              <div class="invalid-feedback">
+              El campo direcciÃ³n es obligatorio.
+              </div>
+          </div>
+          <!-- ENVIAR -->
+          <div>
+            <div class="row">
+              <div class="col">
+                <div>
+                  <input class="btn" type="submit" value="Enviar" style="background-color: #f29d9e; width: 100%; padding: 9px; margin-top: 25px;">
+                </div>
+              </div>
+              <!-- CARTA -->
+            </div>
+          </div>  
+      </form>
+    </div>
+  </div>
+</div>
+ {% endblock body %}
+
+ {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/validar.js' %}"></script>
+  {% endblock script %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+
+#contenedor{
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+
+
+}
+#col_derecha {
+ 
+}
+#col_izquiedo {
+
+}
+
+
+#descripcion {
+    margin-top: 70px;
+}
+#banner{
+    margin-top: 150px;
+}
+
+#contacto{
+    background-color: #ffffffe6;
+    border-radius: 10px;
+    border-color: black;
+    padding-top: 50px;
+    box-shadow: 7px 13px 37px #434343c4;
+
+}
+#card{
+    margin-top: 100px;
+}
+
+body {
+    background-color: rgb(213, 213, 213);
+}
