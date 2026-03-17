@@ -43,38 +43,10 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-5. Aplicar migraciones de la base de datos:
-
-```powershell
-python manage.py migrate
-```
-
-6. (Opcional) Crear superusuario para el admin:
-
-```powershell
-python manage.py createsuperuser
-```
-
-7. Iniciar el servidor de desarrollo:
+5. Iniciar el servidor de desarrollo:
 
 ```powershell
 python manage.py runserver
 ```
 
-8. Detener y desactivar el entorno virtual:
-
-```powershell
-deactivate
-```
-
-Notas útiles
-- Si `python` no está disponible en `PATH`, usa `py -3` en lugar de `python`.
-- Para eliminar el entorno virtual en PowerShell:
-
-```powershell
-Remove-Item -Recurse -Force .venv
-```
-
 Fin
-
-Si quieres, puedo añadir instrucciones específicas para entornos como Git Bash o para desplegar estático (`collectstatic`).
