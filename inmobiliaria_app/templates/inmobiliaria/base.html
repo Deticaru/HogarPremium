@@ -57,6 +57,23 @@
             }
           }
 
+        /* Ajustes de tamaño de fuente y espaciado en el navbar para mejorar la armonía */
+        .site-navbar .nav-link {
+            font-size: 0.9rem;
+        }
+        .site-brand .brand-text {
+            font-size: 0.95rem;
+        }
+        .navbar .btn {
+            font-size: 0.9rem;
+            padding: .35rem .6rem;
+        }
+        @media (max-width: 575px) {
+            .site-navbar .nav-link { font-size: 0.85rem; }
+            .site-brand .brand-text { font-size: 0.9rem; }
+            .navbar .btn { font-size: 0.85rem; padding: .3rem .5rem; }
+        }
+
     </style>
     <!--estilos css personalizados para cada pagina-->
         {% block head %}
@@ -70,7 +87,6 @@
             <div class="container">
                 <a class="navbar-brand site-brand" href="{% url 'inicio' %}">
                     <img class="logo" src="{% static 'images/icono.png' %}" alt="Logo Hogar Premium" style="width: 84px;">
-                    <span class="brand-text">Hogar Premium</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -81,14 +97,22 @@
                         <li class="nav-item me-3">
                             <a class="nav-link site-link" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
                         </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link site-link" aria-current="page" href="{% url 'arriendo' %}">En Arriendo</a>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link site-link" aria-current="page" href="{% url 'venta' %}">En Venta</a>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle site-link" href="#" id="propiedadesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Propiedades
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="propiedadesDropdown">
+                                <li><a class="dropdown-item" href="{% url 'arriendo' %}">En Arriendo</a></li>
+                                <li><a class="dropdown-item" href="{% url 'venta' %}">En Venta</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item me-3">
                             <a class="nav-link site-link" aria-current="page" href="{% url 'compra' %}">Vende tu Propiedad</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="btn btn-primary btn-sm d-flex align-items-center" href="{% url 'admin_propiedades' 'crear' '0' %}">
+                                <i class="fa-solid fa-plus me-1"></i> Publicar propiedad
+                            </a>
                         </li>
         
                         {% if es_admin %}
@@ -107,15 +131,21 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ms-2 d-flex" id="admin">
-                            <a class="nav-link site-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item me-3" id="usuario">
-                            <a class="nav-link site-link" aria-current="page" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central </a>
-                        </li>
                         {% endif %}
                     </ul>
+                    <div class="d-flex align-items-center">
+                        
+                        {% if not request.user.is_authenticated %}
+                        <a class="btn btn-outline-primary ms-2" href="{% url 'login' %}">Iniciar sesión</a>
+                        {% else %}
+                        <div class="d-flex flex-column align-items-end">
+                            <small class="text-muted">{{ request.user.username }}</small>
+                            <button class="btn btn-outline-primary btn-sm mt-1" type="button" onclick="document.getElementById('logoutForm').submit();">
+                                <i class="fa-solid fa-right-from-bracket me-1"></i>Cerrar Sesión
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </nav>
@@ -125,12 +155,14 @@
 
     {% endblock body %}
         </div>
-    <!-- </div> -->
     <!--Bajada-->
     <footer id="bajada" class="footerContainer site-footer">
-        <div class="container footer-top">
+        <div class="container footer-top d-flex justify-content-between align-items-center">
             <div class="footer-brand">Hogar Premium</div>
-            <a href="#header" class="back-top-link">Volver arriba <i class="fa-solid fa-arrow-up"></i></a>
+            <div>
+                <a class="me-3" href="https://si3.bcentral.cl/Indicadoressiete/secure/Indicadoresdiarios.aspx" target="_blank">Información Banco Central</a>
+                <a href="#header" class="back-top-link">Volver arriba <i class="fa-solid fa-arrow-up"></i></a>
+            </div>
         </div>
         <div class="footerBottom">
             <p>HogarPremium Copyright &copy; 2026</p>
